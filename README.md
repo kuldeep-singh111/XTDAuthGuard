@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+#  XTDAuthGuard – Authentication System 
 
-## Getting Started
+XTDAuthGuard is a full-stack authentication system built using **Next.js, **MongoDB**, and **JWT-based**, 
+This project demonstrates **protected routes, login/logout flow, middleware-based auth guard**, and a clean, responsive UI using **shadcn/ui**.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+##  Live Demo
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🔗 **Live URL:**  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+##  UI Overview
 
-To learn more about Next.js, take a look at the following resources:
+- Login Page with card-based layout
+- Dashboard with user list table
+- Navbar with logo and conditional Logout button
+- Fully responsive UI (mobile & desktop)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+##  Tech Stack
 
-## Deploy on Vercel
+### Frontend
+- Next.js
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- Axios
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Backend
+- Next.js API Routes
+- MongoDB
+- Mongoose
+- JWT
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Authentication & Security
+- JWT stored in HTTP-only cookies
+- Token expiry (30 minutes)
+- Middleware-based route protection
+
+---
+
+##  Features
+
+- User login with username, email and password
+- JWT token generation and secure cookie storage
+- Auto redirect based on authentication state
+- Protected dashboard route
+- Middleware-based auth guard
+- Logout functionality
+- Conditional Navbar
+- Clean and scalable folder structure
+- Industry-standard architecture
+
+---
+
+##  Authentication Flow
+
+### Login
+1. User enters username, email and password
+2. Backend:
+   - Saves user in MongoDB
+   - Generates JWT token
+   - Stores token in HTTP-only cookie (30 min expiry)
+3. User is redirected to `/dashboard`
+
+---
+
+### Route Protection
+
+| Scenario | Result |
+|--------|--------|
+| Logged-in user visits `/login` | Redirect to `/dashboard` |
+| Non-logged user visits `/dashboard` | Redirect to `/login` |
+| User visits `/` | Redirect based on token |
+
+All route protection is handled using **Next.js Middleware**.
+
+---
+
+### Logout
+1. `/api/logout` clears the authentication cookie
+2. User is redirected to `/login`
+3. Dashboard access is blocked
+
+---
+
+##  Folder Structure
+authguard/
+│
+├── app/
+│ ├── api/
+│ │ ├── login/
+│ │ └── logout/
+│ ├── dashboard/
+│ ├── login/
+│ ├── layout.tsx
+│ └── page.tsx
+│
+├── components/
+│ ├── navbar/
+│ └── ui/ (shadcn/ui components)
+│
+├── lib/
+│ ├── auth.ts
+│ ├── axios.ts
+│ └── db.ts
+│
+├── models/
+│ └── AdminUser.ts
+│
+├── middleware.ts
+└── README.md
+
